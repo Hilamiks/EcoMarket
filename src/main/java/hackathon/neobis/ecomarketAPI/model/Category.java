@@ -1,19 +1,29 @@
 package hackathon.neobis.ecomarketAPI.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+import java.util.List;
 
 @Entity
 public class Category {
 
 	@Id
 	@GeneratedValue
-	private Long id;
+	private Long categoryId;
 
 	private String name;
 
 	private String picture;
+
+	@OneToMany(
+			mappedBy = "category"
+	)
+	@JsonManagedReference
+	private List<Product> products;
 
 	public Category(String name, String picture) {
 		this.name = name;
@@ -23,12 +33,12 @@ public class Category {
 	public Category() {
 	}
 
-	public Long getId() {
-		return id;
+	public Long getCategoryId() {
+		return categoryId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
 	}
 
 	public String getName() {
