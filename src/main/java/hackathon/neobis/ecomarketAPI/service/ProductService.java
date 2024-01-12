@@ -1,6 +1,7 @@
 package hackathon.neobis.ecomarketAPI.service;
 
 import hackathon.neobis.ecomarketAPI.model.Category;
+import hackathon.neobis.ecomarketAPI.model.Order;
 import hackathon.neobis.ecomarketAPI.model.Product;
 import hackathon.neobis.ecomarketAPI.repo.CategoryRepository;
 import hackathon.neobis.ecomarketAPI.repo.ProductRepository;
@@ -16,8 +17,10 @@ public class ProductService {
 
 	private CategoryService categoryService;
 
-
-	public ProductService(ProductRepository productRepo, CategoryService categoryService) {
+	public ProductService(
+			ProductRepository productRepo,
+			CategoryService categoryService
+	) {
 		this.productRepo = productRepo;
 		this.categoryService = categoryService;
 	}
@@ -66,4 +69,5 @@ public class ProductService {
 	public Product getProductById(Long id) {
 		return productRepo.findById(id).orElse(null);
 	}
+
 }

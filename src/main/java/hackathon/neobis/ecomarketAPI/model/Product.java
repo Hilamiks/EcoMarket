@@ -3,6 +3,8 @@ package hackathon.neobis.ecomarketAPI.model;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Product {
 
@@ -15,6 +17,12 @@ public class Product {
 	private String picture;
 
 	private int price;
+
+	@ManyToMany(
+			mappedBy = "products",
+			fetch = FetchType.LAZY
+	)
+	private List<Order> orders;
 
 	@ManyToOne
 	@JoinColumn(
