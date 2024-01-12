@@ -62,4 +62,8 @@ public class ProductService {
 				)
 		);
 	}
+
+	public Product getProductById(Long id) {
+		return productRepo.findById(id).orElse(null);
+	}
 }

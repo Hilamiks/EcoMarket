@@ -1,6 +1,6 @@
 package hackathon.neobis.ecomarketAPI.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -20,7 +20,7 @@ public class Product {
 	@JoinColumn(
 			name = "category_id"
 	)
-	@JsonBackReference
+	@JsonManagedReference
 	private Category category;
 
 	public Product(String name, String picture, int price, Category category) {
@@ -31,6 +31,14 @@ public class Product {
 	}
 
 	public Product() {
+	}
+
+	public Long getProductId() {
+		return productId;
+	}
+
+	public void setProductId(Long productId) {
+		this.productId = productId;
 	}
 
 	public String getName() {
