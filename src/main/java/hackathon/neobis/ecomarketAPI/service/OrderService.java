@@ -5,7 +5,9 @@ import hackathon.neobis.ecomarketAPI.model.Status;
 import hackathon.neobis.ecomarketAPI.repo.OrderRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderService {
@@ -39,8 +41,8 @@ public class OrderService {
 						"Random house",
 						"please, don't be late",
 						List.of(
-								productService.getProductById(1L),
-								productService.getProductById(2L)
+								1l,
+								2l
 						),
 						Status.COMPLETE
 				)
@@ -52,8 +54,8 @@ public class OrderService {
 						"Random house",
 						"please, don't be late",
 						List.of(
-								productService.getProductById(2L),
-								productService.getProductById(3L)
+								2l,
+								3l
 						),
 						Status.COMPLETE
 				)
@@ -65,8 +67,8 @@ public class OrderService {
 						"Random house",
 						"please, don't be late",
 						List.of(
-								productService.getProductById(4L),
-								productService.getProductById(1L)
+								4l,
+								1l
 						),
 						Status.COMPLETE
 				)
@@ -78,11 +80,27 @@ public class OrderService {
 						"Specific house",
 						"please, don't be late",
 						List.of(
-								productService.getProductById(3L),
-								productService.getProductById(1L)
+								3l,
+								1l
 						),
 						Status.ACTIVE
 				)
 		);
+	}
+
+	public Optional<Order> getLastOrder(String phone) {
+		return orderRepo.findByPhoneNumber(phone)
+				.stream()
+				.max(
+						Comparator.comparing(Order::getCreationDate)
+				);
+	}
+
+	public List<Order> getHistory(String phone) {
+		return orderRepo.findByPhoneNumber(phone);
+	}
+
+	public Order getById(Long id) {
+		return orderRepo.findById(id).orElse(null);
 	}
 }

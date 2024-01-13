@@ -2,6 +2,7 @@ package hackathon.neobis.ecomarketAPI.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -10,9 +11,11 @@ public class Order {
 
 	@Id
 	@GeneratedValue
-	private long orderId;
+	private Long orderId;
 
 	private String phoneNumber;
+
+	private LocalDateTime creationDate;
 
 	private String address;
 
@@ -20,39 +23,35 @@ public class Order {
 
 	private String comment;
 
-	@ManyToMany(
-			fetch = FetchType.LAZY,
-			cascade = CascadeType.ALL
-	)
-	@JoinTable(
-			name = "ORDER_PRODUCT",
-			joinColumns = {
-					@JoinColumn(
-							name = "order_id",
-							referencedColumnName = "orderId"
-					)
-			},
-			inverseJoinColumns = {
-					@JoinColumn(
-							name = "product_id",
-							referencedColumnName = "productId"
-					)
-			}
-	)
-	private List<Product> products;
+	private List<Long> products;
 
 	private Status status;
 
-	public Order(String phoneNumber, String address, String referenceLocation, String comment, List<Product> products, Status status) {
+	public Order(
+			String phoneNumber,
+			String address,
+			String referenceLocation,
+			String comment,
+			List<Long> products,
+			Status status) {
 		this.phoneNumber = phoneNumber;
 		this.address = address;
 		this.referenceLocation = referenceLocation;
 		this.comment = comment;
 		this.products = products;
 		this.status = status;
+		this.creationDate = LocalDateTime.now();
 	}
 
 	public Order() {
+	}
+
+	public LocalDateTime getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(LocalDateTime creationDate) {
+		this.creationDate = creationDate;
 	}
 
 	public long getOrderId() {
@@ -95,11 +94,11 @@ public class Order {
 		this.comment = comment;
 	}
 
-	public List<Product> getProducts() {
+	public List<Long> getProducts() {
 		return products;
 	}
 
-	public void setProducts(List<Product> products) {
+	public void setProducts(List<Long> products) {
 		this.products = products;
 	}
 
