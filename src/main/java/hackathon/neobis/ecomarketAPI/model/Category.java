@@ -1,12 +1,10 @@
 package hackathon.neobis.ecomarketAPI.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,9 +17,7 @@ public class Category {
 	@GeneratedValue
 	private Long categoryId;
 
-	private byte[] data;
-
-	private String contentType;
+	private String fileLink;
 
 	private String fileName;
 
@@ -33,11 +29,10 @@ public class Category {
 	@JsonBackReference
 	private List<Product> products;
 
-	public Category(String name, MultipartFile image) throws IOException {
+	public Category(String name, File image) throws IOException {
 		this.name = name;
-		this.data = image.getBytes();
 		this.fileName = image.getName();
-		this.contentType = image.getContentType();
+		this.fileLink = image.getPath();
 	}
 
 	public Category() {
@@ -67,20 +62,12 @@ public class Category {
 		this.name = name;
 	}
 
-	public byte[] getData() {
-		return data;
+	public String getFileLink() {
+		return fileLink;
 	}
 
-	public void setData(byte[] data) {
-		this.data = data;
-	}
-
-	public String getContentType() {
-		return contentType;
-	}
-
-	public void setContentType(String contentType) {
-		this.contentType = contentType;
+	public void setFileLink(String fileLink) {
+		this.fileLink = fileLink;
 	}
 
 	public String getFileName() {

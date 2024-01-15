@@ -12,13 +12,10 @@ import java.util.Optional;
 @Service
 public class OrderService {
 
-	private OrderRepository orderRepo;
+	private final OrderRepository orderRepo;
 
-	private ProductService productService;
-
-	public OrderService(OrderRepository orderRepo, ProductService productService) {
+	public OrderService(OrderRepository orderRepo) {
 		this.orderRepo = orderRepo;
-		this.productService = productService;
 	}
 
 	public List<Order> getAllOrders(){
@@ -31,61 +28,6 @@ public class OrderService {
 
 	public List<Order> getAll() {
 		return orderRepo.findAll();
-	}
-
-	public void populate() {
-		orderRepo.save(
-				new Order(
-						"+123 456 789",
-						"123 Random St",
-						"Random house",
-						"please, don't be late",
-						List.of(
-								1l,
-								2l
-						),
-						Status.COMPLETE
-				)
-		);
-		orderRepo.save(
-				new Order(
-						"+123 456 789",
-						"123 Random St",
-						"Random house",
-						"please, don't be late",
-						List.of(
-								2l,
-								3l
-						),
-						Status.COMPLETE
-				)
-		);
-		orderRepo.save(
-				new Order(
-						"+123 456 789",
-						"123 Random St",
-						"Random house",
-						"please, don't be late",
-						List.of(
-								4l,
-								1l
-						),
-						Status.COMPLETE
-				)
-		);
-		orderRepo.save(
-				new Order(
-						"+987 654 321",
-						"321 Specific St",
-						"Specific house",
-						"please, don't be late",
-						List.of(
-								3l,
-								1l
-						),
-						Status.ACTIVE
-				)
-		);
 	}
 
 	public Optional<Order> getLastOrder(String phone) {
@@ -104,5 +46,9 @@ public class OrderService {
 
 	public Order getById(Long id) {
 		return orderRepo.findById(id).orElse(null);
+	}
+
+	public void clear() {
+		orderRepo.deleteAll();
 	}
 }

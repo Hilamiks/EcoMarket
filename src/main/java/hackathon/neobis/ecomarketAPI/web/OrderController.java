@@ -10,7 +10,7 @@ import java.util.List;
 public class OrderController {
 
 
-	private OrderService orderService;
+	private final OrderService orderService;
 
 	public OrderController(OrderService orderService) {
 		this.orderService = orderService;
@@ -46,10 +46,11 @@ public class OrderController {
 	}
 
 	//JUST FOR TESTS
-	@GetMapping("/populateorders")
-	public String populating() {
-		orderService.populate();
-		return "Orders created for tests";
+
+	@DeleteMapping("/clearorders")
+	public String clear() {
+		orderService.clear();
+		return "orders have been cleared";
 	}
 
 	@GetMapping("/orders")

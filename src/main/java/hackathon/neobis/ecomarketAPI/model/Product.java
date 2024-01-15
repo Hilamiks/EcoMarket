@@ -2,8 +2,8 @@ package hackathon.neobis.ecomarketAPI.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 
 @Entity
@@ -15,11 +15,11 @@ public class Product {
 
 	private String name;
 
+	private String description;
+
 	private int price;
 
-	private byte[] data;
-
-	private String contentType;
+	private String fileLink;
 
 	private String fileName;
 
@@ -34,30 +34,24 @@ public class Product {
 			String name,
 			int price,
 			Category category,
-			MultipartFile image
+			String description,
+			File image
 	) throws IOException {
 		this.name = name;
 		this.price = price;
 		this.category = category;
-		this.data = image.getBytes();
+		this.description = description;
 		this.fileName = image.getName();
-		this.contentType = image.getContentType();
+		this.fileLink = image.getPath();
 	}
 
-	public byte[] getData() {
-		return data;
+
+	public String getFileLink() {
+		return fileLink;
 	}
 
-	public void setData(byte[] data) {
-		this.data = data;
-	}
-
-	public String getContentType() {
-		return contentType;
-	}
-
-	public void setContentType(String contentType) {
-		this.contentType = contentType;
+	public void setFileLink(String fileLink) {
+		this.fileLink = fileLink;
 	}
 
 	public String getFileName() {
@@ -69,6 +63,14 @@ public class Product {
 	}
 
 	public Product() {
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Long getProductId() {
