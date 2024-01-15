@@ -97,7 +97,9 @@ public class OrderService {
 	}
 
 	public List<Order> getHistory(String phone) {
-		return orderRepo.findByPhoneNumber(phone);
+		List<Order> list = orderRepo.findByPhoneNumber(phone);
+		list.sort(Comparator.comparing(Order::getCreationDate));
+		return list;
 	}
 
 	public Order getById(Long id) {

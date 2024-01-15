@@ -2,6 +2,9 @@ package hackathon.neobis.ecomarketAPI.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Entity
 public class Product {
@@ -12,9 +15,13 @@ public class Product {
 
 	private String name;
 
-	private String picture;
-
 	private int price;
+
+	private byte[] data;
+
+	private String contentType;
+
+	private String fileName;
 
 	@ManyToOne
 	@JoinColumn(
@@ -23,11 +30,42 @@ public class Product {
 	@JsonManagedReference
 	private Category category;
 
-	public Product(String name, String picture, int price, Category category) {
+	public Product(
+			String name,
+			int price,
+			Category category,
+			MultipartFile image
+	) throws IOException {
 		this.name = name;
-		this.picture = picture;
 		this.price = price;
 		this.category = category;
+		this.data = image.getBytes();
+		this.fileName = image.getName();
+		this.contentType = image.getContentType();
+	}
+
+	public byte[] getData() {
+		return data;
+	}
+
+	public void setData(byte[] data) {
+		this.data = data;
+	}
+
+	public String getContentType() {
+		return contentType;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 	public Product() {
@@ -47,14 +85,6 @@ public class Product {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getPicture() {
-		return picture;
-	}
-
-	public void setPicture(String picture) {
-		this.picture = picture;
 	}
 
 	public int getPrice() {

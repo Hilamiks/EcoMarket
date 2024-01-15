@@ -5,6 +5,7 @@ import hackathon.neobis.ecomarketAPI.model.Product;
 import hackathon.neobis.ecomarketAPI.service.ProductService;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -29,7 +30,7 @@ public class ProductController {
 
 	//TEST PURPOSES ONLY
 	@GetMapping("/populate")
-	public String populate() {
+	public String populate() throws IOException {
 		service.populate();
 		return "populated";
 	}

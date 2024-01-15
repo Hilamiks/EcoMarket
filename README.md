@@ -10,8 +10,8 @@ E-Commerce backend app contains the following endpoints:
 
 
 ***TODO:
-1) remove category from products, leave only category id
-2) add image transfer functionality (instead of strings)
+1) 
+2) 
 3) sort orders in history by creation date
 4) remove test endpoints that will not be necessary in the final version
 
