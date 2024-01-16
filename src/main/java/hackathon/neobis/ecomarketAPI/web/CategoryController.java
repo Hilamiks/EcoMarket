@@ -50,4 +50,9 @@ public class CategoryController {
 		return service.save(new Category(name, image));
 	}
 
+	@DeleteMapping("/category/{id}")
+	public Category removeCategory(@PathVariable Long id) {
+		return service.delete(id);
+	}
+
 }

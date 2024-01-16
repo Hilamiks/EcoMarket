@@ -49,11 +49,12 @@ public class ProductController {
 			extension = ".jpg";
 		}
 
-		String address = EcoMarketApiApplication.class.getClassLoader().getResource("").toString() + product.getName() + extension;
-
-		address = address.replaceFirst("file:","");
-
-		System.out.println(address);
+		String address = EcoMarketApiApplication
+				.class
+				.getClassLoader()
+				.getResource("")
+				.toString().replaceFirst("file:","")
+				+ product.getName() + extension;
 
 		File image = new File(address);
 
@@ -71,5 +72,10 @@ public class ProductController {
 	public String clear() {
 		service.clear();
 		return "cleared";
+	}
+
+	@DeleteMapping("/product/{id}")
+	public Product deleteProduct(@PathVariable Long id) {
+		return service.delete(id);
 	}
 }

@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>hackathon.neobis</groupId>
 	<artifactId>eco-marketAPI</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-PROD</version>
 	<name>eco-marketAPI</name>
 	<description>Endpoints for eco-market app</description>
 	<properties>

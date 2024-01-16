@@ -1,5 +1,6 @@
 package hackathon.neobis.ecomarketAPI.service;
 
+import hackathon.neobis.ecomarketAPI.EcoMarketApiApplication;
 import hackathon.neobis.ecomarketAPI.model.Category;
 import hackathon.neobis.ecomarketAPI.model.Product;
 import hackathon.neobis.ecomarketAPI.model.ProductDTO;
@@ -50,5 +51,22 @@ public class ProductService {
 	public void clear() {
 		categoryService.clear();
 		productRepo.deleteAll();
+	}
+
+	public Product delete(Long id) {
+		Product product = productRepo.findById(id).orElse(null);
+		productRepo.deleteById(id);
+
+		String address = EcoMarketApiApplication
+				.class
+				.getClassLoader()
+				.getResource("")
+				.toString().replaceFirst("file:","")
+				+ product.getName();
+
+		new File(address + ".png").delete();
+		new File(address + ".jpg").delete();
+
+		return product;
 	}
 }

@@ -2,5 +2,6 @@ package hackathon.neobis.ecomarketAPI.model;
 
 public enum Status {
 	ACTIVE,
-	COMPLETE
+	COMPLETE,
+	CANCELLED
 }

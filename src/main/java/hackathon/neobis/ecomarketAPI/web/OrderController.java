@@ -4,6 +4,7 @@ import hackathon.neobis.ecomarketAPI.model.Order;
 import hackathon.neobis.ecomarketAPI.service.OrderService;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -20,6 +21,7 @@ public class OrderController {
 	public Order postOrder(
 			@RequestBody Order order
 	) {
+		order.setCreationDate(LocalDateTime.now());
 		orderService.save(order);
 		return order;
 	}
